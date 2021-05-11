@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mission to Mars</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <!--<link rel="stylesheet" href="{{url_for('static', filename='style.css') }}"> -->
+
+  <!-- Our Css-->
+  <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+
+<body>
+  <!-- <div class='box_gen'> -->
+    <div class="container-fluid">
+
+      <div class= "bg-info text-center">
+        <h1>Mission to Mars</h1>
+        <p><a class="btn btn-secondary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+      </div>
+
+      <div class='row'>
+        <div class='col-md-12 text-center'>
+          <h1>Latest Mars News</h1>
+          <div class= "text-center">
+          <h3>{{ mars.news_title }}</h3>
+          <p>{{ mars.news_p }}</p>
+          <hr>
+        </div>
+          
+        </div>
+        </div>
+      </div>
+
+      <div class='row'>
+        <br>
+        <h2>Featured Mars Image</h2>
+        <div class='col-lg-7 col-sm-8'>
+          <br>
+          <img src="{{mars.featured_image_url}}" alt="Featured Mars Image" style="max-width: 50%">
+        </div>
+
+        
+        <div class='col-lg-5 col-sm-4'>
+          <div class='table-responsive'>
+            <div class="text-center">
+            <h2>Mars Facts</h2>
+            </div>
+            <table border="1" class="dataframe table table-bordered border-dark table-striped responsive"> 
+              <thead> 
+                <tr style="text-align: left;">
+                  <th>Description</th> 
+                  <th>Value</th> 
+                </tr> 
+                </thead> 
+                <tbody> 
+                  <tr>
+                    <th>Equatorial Diameter:</th>
+                      <td>6,792 km</td> 
+                  </tr> 
+                  <tr>
+                    <th>Polar Diameter:</th>  
+                      <td>6,752 km</td> </tr> 
+                  <tr> 
+                    <th>Mass:</th> 
+                      <td>6.39 × 10^23 kg (0.11 Earths)</td> 
+                  </tr> <tr> 
+                      <th>Moons:</th> 
+                      <td>2 (Phobos &amp; Deimos)</td> 
+                  </tr> <tr> 
+                      <th>Orbit Distance:</th> 
+                      <td>227,943,824 km (1.38 AU)</td> 
+                  </tr> <tr> 
+                      <th>Orbit Period:</th> 
+                      <td>687 days (1.9 years)</td> 
+                  </tr> <tr> 
+                      <th>Surface Temperature:</th>
+                      <td>-87 to -5 °C</td> </tr> 
+                  <tr> 
+                      <th>First Record:</th> 
+                      <td>2nd millennium BC</td> 
+                  </tr> <tr> 
+                      <th>Recorded By:</th> 
+                      <td>Egyptian astronomers</td> 
+                  </tr> 
+                </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class='col-12'>
+          <br>
+          <h1 style="text-align: center;">Mars Hemispheres</h1>
+          <hr>
+        </div>
+      </div>
+
+      <div class="row">
+
+        {% for i in mars.hem_img_urls%}
+          <div class='col-lg-6 col-md-6 col-sm-6'>
+            <img src="{{mars.hem_img_urls[loop.index0].img_url}}" alt="Mars Hemisphere" style="max-width: 80%;">
+            <h3>{{mars.hem_img_urls[loop.index0].title}}</h3>
+          </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  <!-- </div> -->
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</html>

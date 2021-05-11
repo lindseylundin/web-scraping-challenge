@@ -2,17 +2,21 @@
 import pandas as pd
 from pprint import pprint
 from bs4 import BeautifulSoup as bs
-import pymongo as mongo
 import requests
+import pymongo
+from pymongo import MongoClient
 from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 from pprint import pprint
 
+client = pymongo.MongoClient('mongodb://localhost:27017')
+db = client.mars_db
+collection = db.mars 
 
 # Create function to scrape all data needed for site then inserting the data into MongoDB
 def scrape():
- 
+
     ######## NASA Mars News ########
     # Set up Spinter
     executable_path = {'executable_path': ChromeDriverManager().install()}
@@ -31,7 +35,8 @@ def scrape():
     #news_title
 
     # Grab latest news title's paragraph text
-    news_p = soup.find('div',class_='article_teaser_body').text
+    p = soup.find_all('div',class_='article_teaser_body')
+    news_p = p[1].text.strip()
     #news_p
 
     # Quit browser session
@@ -148,9 +153,21 @@ def scrape():
     browser.quit()
 
     
-    return [news_title, news_p, facts_html_string, featured_image_url, hem_img_urls]
+    # Create dictionary
+    mars_info = {
+        "news_title": news_title,
+        "news_p": news_p,
+        "featured_image_url": featured_image_url,
+        "facts_html_string": facts_html_string,
+        "hem_img_urls": hem_img_urls
+        
+    }
 
-scrape()
+
+    collection.insert(mars_info)
+    return mars_info
+
+#scrape()
 
 
 
